@@ -1,23 +1,24 @@
-/*
 package com.example.kmmpoc.android
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kmmpoc.Gallery
+import com.squareup.picasso.Picasso
 
-class GalleryRecyclerViewAdapter: RecyclerView.Adapter<GalleryRecyclerViewAdapter.ViewHolder>() {
-
-    */
-/**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     *//*
-
+class GalleryRecyclerViewAdapter(var galleries: List<Gallery>): RecyclerView.Adapter<GalleryRecyclerViewAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        val imageView: ImageView
+        val authorTextView: TextView
+        val urlTextView: TextView
 
         init {
-            // Define click listener for the ViewHolder's View.
-            textView = view.findViewById(R.id.textView)
+            imageView = view.findViewById(R.id.gallery_item_image_view)
+            authorTextView = view.findViewById(R.id.gallery_item_author_text_view)
+            urlTextView = view.findViewById(R.id.gallery_item_url_text_view)
         }
     }
 
@@ -25,19 +26,25 @@ class GalleryRecyclerViewAdapter: RecyclerView.Adapter<GalleryRecyclerViewAdapte
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.text_row_item, viewGroup, false)
+            .inflate(R.layout.view_gallery_item, viewGroup, false)
 
         return ViewHolder(view)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: GalleryRecyclerViewAdapter.ViewHolder, position: Int) {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView.text = dataSet[position]
+        viewHolder.authorTextView .text = galleries[position].author
+        viewHolder.urlTextView .text = galleries[position].url
+        Picasso.get()
+            .load(galleries[position].downloadUrl)
+            .resize(30, 30)
+            .into(viewHolder.imageView);
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataSet.size
-}*/
+    override fun getItemCount() = galleries.size
+}

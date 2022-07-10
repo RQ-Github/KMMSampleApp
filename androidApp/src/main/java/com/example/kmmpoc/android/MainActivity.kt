@@ -13,17 +13,21 @@ class MainActivity : AppCompatActivity() {
     private val galleryRepository = GalleryRepository()
     private lateinit var recyclerView: RecyclerView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recyclerView = findViewById(R.id.gallery_recycler_view)
+        recyclerView.adapter = GalleryRecyclerViewAdapter(listOf())
+        loadGalleries()
     }
 
     fun loadGalleries() {
         GlobalScope.launch {
             val list = galleryRepository.get()
             withContext(Dispatchers.Main) {
-
+                (recyclerView.adapter as GalleryRecyclerViewAdapter).galleries = list
+                recyclerView.adapter!!.notifyDataSetChanged();
             }
         }
     }
