@@ -83,6 +83,6 @@ android {
 
 sqldelight {
     database("AppDatabase") {
-        packageName = "com.example.kmmpoc.shared.cache"
+        packageName = "com.example.kmmpoc"
     }
 }

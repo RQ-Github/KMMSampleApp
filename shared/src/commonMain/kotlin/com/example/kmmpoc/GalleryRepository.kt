@@ -5,15 +5,18 @@ import io.ktor.client.statement.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
-class GalleryRepository {
+class GalleryRepository(databaseDriverFactory: DatabaseDriverFactory) {
     val httpClient: HttpClient = HttpClient()
+    private val database = Database(databaseDriverFactory)
+
     suspend fun get() : List<Gallery>{
         try {
             val response = httpClient.get("https://picsum.photos/v2/list")
-            return Json.decodeFromString(response.bodyAsText())
+            val galleries = Json.decodeFromString<List<Gallery>>(response.bodyAsText())
+            database.createGalleries(galleries)
+            return galleries
         } catch (e: Exception) {
-            val a = ""
-            return listOf()
+            return database.getAllGalleries()
         }
     }
 }

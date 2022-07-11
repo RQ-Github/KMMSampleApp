@@ -26,5 +26,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
 }

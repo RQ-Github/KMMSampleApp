@@ -1,0 +1,14 @@
+CREATE TABLE GalleryModel (
+  id TEXT NOT NULL PRIMARY KEY,
+  author TEXT NOT NULL,
+  width INTEGER AS Int NOT NULL DEFAULT 0,
+  height INTEGER AS Int NOT NULL DEFAULT 0,
+  url TEXT NOT NULL,
+  download_url TEXT NOT NULL
+);
+
+insertGallery: INSERT INTO GalleryModel(id, author, width, height, url, download_url) VALUES(?, ?, ?, ?, ?, ?);
+
+selectAllGalleries: SELECT * FROM GalleryModel;
+
+removeAllGalleries: DELETE FROM GalleryModel;

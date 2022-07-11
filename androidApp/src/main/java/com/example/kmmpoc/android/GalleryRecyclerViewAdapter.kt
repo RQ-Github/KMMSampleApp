@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.kmmpoc.Gallery
-import com.squareup.picasso.Picasso
+
+
 
 class GalleryRecyclerViewAdapter(var galleries: List<Gallery>): RecyclerView.Adapter<GalleryRecyclerViewAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,13 +38,14 @@ class GalleryRecyclerViewAdapter(var galleries: List<Gallery>): RecyclerView.Ada
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.authorTextView .text = galleries[position].author
-        viewHolder.urlTextView .text = galleries[position].url
-        Picasso.get()
-            .load(galleries[position].downloadUrl)
-            .resize(30, 30)
-            .into(viewHolder.imageView);
+        viewHolder.authorTextView.text = galleries[position].author
+        viewHolder.urlTextView.text = galleries[position].url
 
+        Glide
+            .with(viewHolder.imageView.context)
+            .load(galleries[position].downloadUrl)
+            .circleCrop()
+            .into(viewHolder.imageView);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
