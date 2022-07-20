@@ -80,6 +80,9 @@ android {
         targetSdk = 32
     }
 }
+dependencies {
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
+}
 
 sqldelight {
     database("AppDatabase") {
